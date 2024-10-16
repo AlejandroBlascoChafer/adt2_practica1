@@ -21,7 +21,7 @@ public class App1 {
         try {
             Document document = dom.instanciarDocument(archivo);
 
-            Element root = document.getDocumentElement();
+
 
             NodeList listaNodos = document.getElementsByTagName("prestamo");
             Node prestamo = listaNodos.item(0);

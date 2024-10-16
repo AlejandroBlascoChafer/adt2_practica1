@@ -2,20 +2,21 @@ package org.example;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class App4 {
+public class App5 {
     public static void main(String[] args) {
 
         XmlCtrlDom dom = new XmlCtrlDom();
         File archivo = new File("./src/main/resources/ejercicio4.xml");
-        ArrayList<Alumnos> alumnos = new ArrayList<>();
+        ArrayList<Alumnos> alumnosDAM = new ArrayList<>();
+        ArrayList<Alumnos> alumnosASIX = new ArrayList<>();
         try {
             Document document = dom.instanciarDocument(archivo);
 
@@ -29,16 +30,24 @@ public class App4 {
                 String apellido = nodo.getElementsByTagName("cognom").item(0).getTextContent();
                 String curso = nodo.getElementsByTagName("curs").item(0).getTextContent();
 
+                if (curso.equals("2nDAM")){
+                    alumnosDAM.add(new Alumnos(id, nombre, apellido, curso));
+                } else if (curso.equals("2nASIX")) {
+                    alumnosASIX.add(new Alumnos(id, nombre, apellido, curso));
+                }
 
-
-
-                alumnos.add(new Alumnos(id, nombre, apellido, curso));
 
             }
-
-            for (Alumnos a : alumnos) {
+            System.out.println("Alumnos de DAM");
+            for (Alumnos a : alumnosDAM) {
                 System.out.println(a.toString());
             }
+            System.out.println("----------------------");
+            System.out.println("Alumnos de ASIX");
+            for (Alumnos a : alumnosASIX) {
+                System.out.println(a.toString());
+            }
+            System.out.println("----------------------");
 
 
         } catch (IOException | ParserConfigurationException | SAXException | NullPointerException e){
